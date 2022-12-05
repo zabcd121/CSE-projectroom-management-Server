@@ -6,6 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static com.cse.cseprojectroommanagementserver.domain.penalty.domain.model.QPenalty.*;
@@ -37,6 +38,14 @@ public class PenaltySearchRepository implements PenaltySearchableRepository {
                                 .and(penalty.endDate.goe(LocalDate.now()))))
                 .fetchOne()
         );
+    }
+
+    @Override
+    public List<Penalty> findAllByMemberId(Long memberId) {
+        return queryFactory
+                .selectFrom(penalty)
+                .where(penalty.member.memberId.eq(memberId))
+                .fetch();
     }
 
 }
