@@ -66,6 +66,9 @@ public enum ResponseConditionCode {
     RESERVATION_QR_CHECKIN_FAIL("0314", "예약 QR 체크인 실패"),
     IN_USE_TABLE("0315", "사용중인 테이블입니다."),
     NOT_IN_USE_TABLE("0316", "예약 확인 후 사용해주세요"),
+    CHECK_IN_FAIL_BEFORE_START_TIME("0317", "체크인 불가능한 시간입니다."),
+    CHECK_IN_FAIL_AFTER_START_TIME("0318", "체크인 불가능한 시간입니다."),
+    CHECK_IN_FAIL_PREVIOUS_IN_USE("0319", "이전 예약 사용중에는 체크인이 불가능합니다."),
 
     /**
      * Table Return: 04

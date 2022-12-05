@@ -2,13 +2,12 @@ package com.cse.cseprojectroommanagementserver.domain.reservation.domain.model;
 
 import com.cse.cseprojectroommanagementserver.domain.member.domain.model.Member;
 import com.cse.cseprojectroommanagementserver.domain.projecttable.domain.model.ProjectTable;
-import com.cse.cseprojectroommanagementserver.domain.reservation.exception.ImpossibleCheckInTImeException;
+import com.cse.cseprojectroommanagementserver.domain.reservation.exception.ImpossibleCheckInTimeBeforeStartTimeException;
+import com.cse.cseprojectroommanagementserver.domain.reservation.exception.CheckInPreviousReservationInUseException;
 import com.cse.cseprojectroommanagementserver.domain.tablereturn.domain.model.TableReturn;
 import com.cse.cseprojectroommanagementserver.global.common.BaseTimeEntity;
 import com.cse.cseprojectroommanagementserver.global.common.QRImage;
 import lombok.*;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -117,11 +116,15 @@ public class Reservation extends BaseTimeEntity {
 
 
     public void checkIn(boolean isPreviousReservationInUse) {
-        if (!isPreviousReservationInUse
-                || LocalDateTime.now().isBefore(this.startDateTime.minusMinutes(POSSIBLE_CHECKIN_TIME_BEFORE.getValue())) //시작시간 10분이상 전에는 체크인 불가
-                || LocalDateTime.now().isAfter(this.startDateTime.plusMinutes(POSSIBLE_CHECKIN_TIME_AFTER.getValue()))) { //시작시간 20분이 지난 후에는 체크인 불가
-            throw new ImpossibleCheckInTImeException();
-        }
+//        if (!isPreviousReservationInUse) {
+//            throw new CheckInPreviousReservationInUseException();
+//        }
+//        else if(LocalDateTime.now().isBefore(this.startDateTime.minusMinutes(POSSIBLE_CHECKIN_TIME_BEFORE.getValue()))) {
+//            throw new ImpossibleCheckInTimeBeforeStartTimeException(POSSIBLE_CHECKIN_TIME_BEFORE.getValue() + "분 전부터 체크인 가능합니다.");//시작시간 10분이상 전에는 체크인 불가
+//        }
+//        else if(LocalDateTime.now().isAfter(this.startDateTime.plusMinutes(POSSIBLE_CHECKIN_TIME_AFTER.getValue()))) {
+//            throw new ImpossibleCheckInTimeBeforeStartTimeException("예약시간 " + POSSIBLE_CHECKIN_TIME_AFTER.getValue() + "분 이후로는 체크인 불가능합니다."); //시작시간 20분이 지난 후에는 체크인 불가
+//        }
 
         this.checkInTime = LocalDateTime.now();
         this.reservationStatus = IN_USE;

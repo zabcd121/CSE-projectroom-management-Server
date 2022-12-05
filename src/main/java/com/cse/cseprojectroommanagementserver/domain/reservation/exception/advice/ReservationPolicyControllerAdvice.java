@@ -134,6 +134,26 @@ public class ReservationPolicyControllerAdvice {
         return new ResponseError(NOT_IN_USE_TABLE);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler
+    public ResponseError impossibleCheckInTimeExHandler(ImpossibleCheckInTimeBeforeStartTimeException ex) {
+        log.error("[exceptionHandler] ImpossibleCheckInTimeBeforeStartTimeException", ex);
+        return new ResponseError(CHECK_IN_FAIL_BEFORE_START_TIME, ex.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler
+    public ResponseError impossibleCheckInTImeExHandler(ImpossibleCheckInTimeAfterStartTimeException ex) {
+        log.error("[exceptionHandler] ImpossibleCheckInTImeException", ex);
+        return new ResponseError(CHECK_IN_FAIL_AFTER_START_TIME, ex.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler
+    public ResponseError impossibleCheckInTimeExHandler(CheckInPreviousReservationInUseException ex) {
+        log.error("[exceptionHandler] CheckInPreviousReservationInUseException", ex);
+        return new ResponseError(CHECK_IN_FAIL_PREVIOUS_IN_USE);
+    }
 
 }
 
