@@ -87,13 +87,6 @@ public class ReservationPolicyControllerAdvice {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler
-    public ResponseError notExistsQRExHandler(CurrentCheckInImpossibleReservationQRException ex) {
-        log.error("[exceptionHandler] NotExistsEqualReservationQRException", ex);
-        return new ResponseError(RESERVATION_QR_CHECKIN_FAIL);
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler
     public ResponseError notCreatedAccountQRExHandler(ReservationQRNotCreatedException ex) {
         log.error("[exceptionHandler] ReservationQRNotCreatedException", ex);
         return new ResponseError(RESERVATION_QR_CREATE_FAIL);
@@ -136,23 +129,30 @@ public class ReservationPolicyControllerAdvice {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler
-    public ResponseError impossibleCheckInTimeExHandler(ImpossibleCheckInTimeBeforeStartTimeException ex) {
+    public ResponseError impossibleQRCheckInExHandler(InvalidReservationQRException ex) {
         log.error("[exceptionHandler] ImpossibleCheckInTimeBeforeStartTimeException", ex);
-        return new ResponseError(CHECK_IN_FAIL_BEFORE_START_TIME, ex.getMessage());
+        return new ResponseError(RESERVATION_QR_CHECK_IN_FAIL);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler
-    public ResponseError impossibleCheckInTImeExHandler(ImpossibleCheckInTimeAfterStartTimeException ex) {
+    public ResponseError impossibleCheckInTimeBeforeStartTimeExHandler(ImpossibleCheckInTimeBeforeStartTimeException ex) {
+        log.error("[exceptionHandler] ImpossibleCheckInTimeBeforeStartTimeException", ex);
+        return new ResponseError(RESERVATION_CHECK_IN_FAIL_BEFORE_START_TIME, ex.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler
+    public ResponseError impossibleCheckInTimeAfterStartTimeExHandler(ImpossibleCheckInTimeAfterStartTimeException ex) {
         log.error("[exceptionHandler] ImpossibleCheckInTImeException", ex);
-        return new ResponseError(CHECK_IN_FAIL_AFTER_START_TIME, ex.getMessage());
+        return new ResponseError(RESERVATION_CHECK_IN_FAIL_AFTER_START_TIME, ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler
-    public ResponseError impossibleCheckInTimeExHandler(CheckInPreviousReservationInUseException ex) {
+    public ResponseError checkInPreviousReservationInUseExHandler(CheckInPreviousReservationInUseException ex) {
         log.error("[exceptionHandler] CheckInPreviousReservationInUseException", ex);
-        return new ResponseError(CHECK_IN_FAIL_PREVIOUS_IN_USE);
+        return new ResponseError(RESERVATION_CHECK_IN_FAIL_PREVIOUS_IN_USE);
     }
 
 }
