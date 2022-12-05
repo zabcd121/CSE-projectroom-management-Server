@@ -29,11 +29,11 @@ public class TableReturnService {
     private final FileUploadUtil fileUploadUtil;
 
     @Transactional
-    public void returnTable(TableReturnRequest tableReturnRequest) {
-        Reservation findReservation = reservationSearchableRepository.findByReservationId(tableReturnRequest.getReservationId())
+    public void returnTable(Long reservationId, MultipartFile cleanupPhoto) {
+        Reservation findReservation = reservationSearchableRepository.findByReservationId(reservationId)
                 .orElseThrow(() -> new NotExistsReservationException());
-        Image cleanupPhoto = fileUploadUtil.uploadFile(tableReturnRequest.getCleanupPhoto());
+        Image image = fileUploadUtil.uploadFile(cleanupPhoto);
 
-        tableReturnRepository.save(TableReturn.createReturn(findReservation, cleanupPhoto));
+        tableReturnRepository.save(TableReturn.createReturn(findReservation, image));
     }
 }
