@@ -63,12 +63,12 @@ public enum ResponseConditionCode {
     RESERVATION_CANCEL_FAIL("0311", "예약 취소 실패"),
     RESERVATION_QR_CREATE_FAIL("0312", "예약 QR 생성 실패"),
     RESERVATION_QR_AUTH_SUCCESS("0313", "예약 QR 인증 성공"),
-    RESERVATION_QR_CHECKIN_FAIL("0314", "예약 QR 체크인 실패"),
-    IN_USE_TABLE("0315", "사용중인 테이블입니다."),
-    NOT_IN_USE_TABLE("0316", "예약 확인 후 사용해주세요"),
-    CHECK_IN_FAIL_BEFORE_START_TIME("0317", "체크인 불가능한 시간입니다."),
-    CHECK_IN_FAIL_AFTER_START_TIME("0318", "체크인 불가능한 시간입니다."),
-    CHECK_IN_FAIL_PREVIOUS_IN_USE("0319", "이전 예약 사용중에는 체크인이 불가능합니다."),
+    IN_USE_TABLE("0314", "사용중인 테이블입니다."),
+    NOT_IN_USE_TABLE("0315", "예약 확인 후 사용해주세요"),
+    RESERVATION_QR_CHECK_IN_FAIL("0316", "유효하지 않은 QR 코드 입니다"),
+    RESERVATION_CHECK_IN_FAIL_BEFORE_START_TIME("0317", "체크인 불가능한 시간입니다."),
+    RESERVATION_CHECK_IN_FAIL_AFTER_START_TIME("0318", "체크인 불가능한 시간입니다."),
+    RESERVATION_CHECK_IN_FAIL_PREVIOUS_IN_USE("0319", "이전 예약 사용중에는 체크인이 불가능합니다."),
 
     /**
      * Table Return: 04
@@ -79,7 +79,12 @@ public enum ResponseConditionCode {
     /**
      * Project Room: 05
      */
-    PROJECT_ROOM_SEARCH_SUCCESS("0500", "프로젝트실 조회 성공");
+    PROJECT_ROOM_SEARCH_SUCCESS("0500", "프로젝트실 조회 성공"),
+
+    /**
+     * Penalty: 06
+     */
+    PENALTY_LOGS_SEARCH_SUCCESS("0600", "제재 내역 조회 성공");
 
     private final String code;
     private final String message;
