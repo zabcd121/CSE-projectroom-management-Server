@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Component
@@ -35,14 +36,15 @@ public class FileUploadUtil {
             String fileExtension = FilenameUtils.getExtension(fileOriName);
 
             String destinationFileName = UUID.randomUUID().toString() + "." + fileExtension;
-            File destinationFile = new File(outbound + returns + destinationFileName);
+            String fileUrl = returns + "/" + LocalDate.now().getYear() + "/" + LocalDate.now().getMonthValue() + "/" + LocalDate.now().getDayOfMonth() + "/";
+            File destinationFile = new File(outbound + fileUrl + destinationFileName);
             destinationFile.getParentFile().mkdirs();
             multipartFile.transferTo(destinationFile);
 
             return Image.builder()
                     .fileLocalName(destinationFileName)
                     .fileOriName(fileOriName)
-                    .fileUrl(inbound + returns)
+                    .fileUrl(inbound + fileUrl)
                     .build();
 
         } catch (IOException e) {
