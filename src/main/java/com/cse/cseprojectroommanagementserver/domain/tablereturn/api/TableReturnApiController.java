@@ -19,7 +19,7 @@ public class TableReturnApiController {
     private final TableReturnService tableReturnService;
 
     @PostMapping
-    public ResponseSuccessNoResult tableReturn(@RequestParam Long reservationId, MultipartFile cleanupPhoto) {
+    public ResponseSuccessNoResult returnTable(@RequestParam Long reservationId, MultipartFile cleanupPhoto) {
         tableReturnService.returnTable(reservationId, cleanupPhoto);
         return new ResponseSuccessNoResult(RETURN_SUCCESS);
     }
